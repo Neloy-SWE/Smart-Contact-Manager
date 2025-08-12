@@ -8,6 +8,9 @@ package swe.neloy.smart_contact_manager.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -31,6 +34,9 @@ public class User {
 
     @Column(length = 500)
     private String about;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Contact> contactList = new ArrayList<>();
 }
 
 
