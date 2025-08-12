@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>This is signup page</title>
+</head>
+
+<body>
+    <section>
+        <div class="container" style="padding: 50px;">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="my-card">
+
+                        <div class="container text-center mb-3">
+
+                            <img th:src="@{../images/signUp.svg}" alt="" class="text" style="width:100px;" src="">
+
+                        </div>
+
+                        <h1 class="text-center">Sign Up</h1>
+
+                        <!-- alert -->
+                        <div th:if="${alertTermCondition}" th:classappend="${alertTermCondition.type}" class="alert"
+                            role="alert">
+                            <p class="text-center" th:text="${alertTermCondition.content}"></p>
+                        </div>
+                        <form action="" th:action="@{/doSignup}" method="post" th:object="${user}">
+
+                            <!-- name filed -->
+                            <div class="mb-3">
+
+                                <label for="nameField" class="form-label">Your Name
+                                </label>
+
+                                <input name="name" type="text" class="form-control" id="nameField"
+                                    placeholder="Enter here" required th:value="${user.name}">
+
+
+                            </div>
+
+
+                            <!-- email filed -->
+                            <div class="mb-3">
+
+                                <label for="emailField" class="form-label">Your Email
+                                </label>
+
+                                <input name="email" type="email" class="form-control" id="emailField"
+                                    placeholder="Enter here" required th:value="${user.email}">
+
+
+                            </div>
+
+                            <!-- password filed -->
+                            <div class="mb-3">
+
+                                <label for="passwordField" class="form-label">Your Password
+                                </label>
+
+                                <input name="password" type="password" class="form-control" id="passwordField"
+                                    placeholder="Enter here" required>
+                            </div>
+
+                            <!-- user about field -->
+                            <div class="form-group">
+
+                                <label for="aboutField" class="form-label">About Yourself
+                                </label>
+                                <textarea name="about" id="aboutField" placeholder="Enter something about yourself"
+                                    rows="5" class="form-control" th:value="${user.about}"></textarea>
+                            </div>
+
+                            <!-- terms and condition agreement -->
+                            <div class="form-group from-check text-center mt-3">
+                                <input type="checkbox" name="agreement" class="from-check-input" id="agreement">
+                                <label for="agreement">
+                                    I agree to the terms and conditions</label>
+                            </div>
+
+                            <div class="container text-center mt-3">
+                                <button type="submit" class="btn bg-primary text-white"
+                                    style="border-radius: 10px; height: 50px; padding: 0 20px; margin-right: 20px;">
+                                    Submit
+                                </button>
+
+                                <button type="reset" class="btn btn-secondary">
+                                    Reset
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
