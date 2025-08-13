@@ -5,12 +5,11 @@ Email: taufiqneloy.swe@gmail.com
 
 package swe.neloy.smart_contact_manager.controllers;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swe.neloy.smart_contact_manager.data_access_objects.UserRepository;
@@ -61,7 +60,7 @@ public class HomeController {
 
     //handler for user signup:
     @RequestMapping(value = "/doSignup", method = RequestMethod.POST)
-    public String doSignup(@ModelAttribute("user") User user, @RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model, RedirectAttributes redirectAttributes){
+    public String doSignup(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model, RedirectAttributes redirectAttributes){
         try{
             if(!agreement){
                 System.out.println("please check terms and condition");
@@ -69,6 +68,11 @@ public class HomeController {
             }
 //        System.out.println("Agreement::: "+agreement);
 //        System.out.println("user::: "+user);
+
+            if(bindingResult.hasErrors()){
+                model.addAttribute("user", user);
+                return "signup";
+            }
 
             user.setRole("roleUser");
             user.setEnabled(true);
